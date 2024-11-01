@@ -1,36 +1,11 @@
 #!/bin/bash
-# This script for custom download the latest packages version from snapshots/stable repo's url and github releases.
-# Put file name and url base.
-
-# Download packages from official snapshots, stable repo's urls and custom repo's.
 {
 files1=(
-    #"luci-proto-modemmanager|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/luci"
-    #"luci-proto-mbim|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/luci"
-    #"modemmanager|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/packages"
-    #"libmbim|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/packages"
-    #"libqmi|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/packages"
-    "sms-tool|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/packages"
-    "luci-proto-modemmanager|https://downloads.openwrt.org/releases/packages-23.05/$ARCH_3/luci"
-    "luci-proto-mbim|https://downloads.openwrt.org/releases/packages-23.05/$ARCH_3/luci"
-    "modemmanager|https://downloads.openwrt.org/releases/packages-23.05/$ARCH_3/packages"
-    "libmbim|https://downloads.openwrt.org/releases/packages-23.05/$ARCH_3/packages"
-    "libqmi|https://downloads.openwrt.org/releases/packages-23.05/$ARCH_3/packages"
-    #"sms-tool|https://downloads.openwrt.org/releases/packages-23.05/$ARCH_3/packages"
-    "luci-app-argon-config|https://fantastic-packages.github.io/packages/releases/$(echo "$BRANCH" | cut -d'.' -f1-2)/packages/$ARCH_3/luci"
-    "luci-theme-argon|https://fantastic-packages.github.io/packages/releases/$(echo "$BRANCH" | cut -d'.' -f1-2)/packages/$ARCH_3/luci"
-    "luci-app-cpu-status-mini|https://fantastic-packages.github.io/packages/releases/$(echo "$BRANCH" | cut -d'.' -f1-2)/packages/$ARCH_3/luci"
-    "luci-app-diskman|https://fantastic-packages.github.io/packages/releases/$(echo "$BRANCH" | cut -d'.' -f1-2)/packages/$ARCH_3/luci"
-    "luci-app-disks-info|https://fantastic-packages.github.io/packages/releases/$(echo "$BRANCH" | cut -d'.' -f1-2)/packages/$ARCH_3/luci"
-    "luci-app-log-viewer|https://fantastic-packages.github.io/packages/releases/23.05/packages/$ARCH_3/luci"
-    "luci-app-temp-status|https://fantastic-packages.github.io/packages/releases/$(echo "$BRANCH" | cut -d'.' -f1-2)/packages/$ARCH_3/luci"
-    "luci-app-internet-detector|https://fantastic-packages.github.io/packages/releases/$(echo "$BRANCH" | cut -d'.' -f1-2)/packages/$ARCH_3/luci"
-    "internet-detector|https://fantastic-packages.github.io/packages/releases/$(echo "$BRANCH" | cut -d'.' -f1-2)/packages/$ARCH_3/packages"
-    "internet-detector-mod-modem-restart|https://fantastic-packages.github.io/packages/releases/23.05/packages/$ARCH_3/packages"
-    "luci-app-netspeedtest|https://fantastic-packages.github.io/packages/releases/$(echo "$BRANCH" | cut -d'.' -f1-2)/packages/$ARCH_3/luci"
-    "python3-speedtest-cli|https://downloads.openwrt.org/releases/packages-$(echo "$BRANCH" | cut -d'.' -f1-2)/$ARCH_3/packages"
-    "librespeed-go|https://downloads.openwrt.org/releases/packages-$(echo "$BRANCH" | cut -d'.' -f1-2)/$ARCH_3/packages"
-    "luci-app-ramfree|https://downloads.staging.immortalwrt.org/snapshots/packages/$ARCH_3/luci"
+    "modemmanager-rpcd|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/packages"
+    "luci-proto-modemmanager|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/luci"
+    "libqmi|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/packages"
+    "libmbim|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/packages"
+    "modemmanager|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/packages"
 )
 
 echo "###########################################################"
@@ -64,18 +39,7 @@ if [ "$TYPE" == "AMLOGIC" ]; then
 fi
 
 files2+=(
-    "luci-app-adguardhome|https://api.github.com/repos/kongfl888/luci-app-adguardhome/releases/latest"
-    "luci-app-sms-tool-js|https://api.github.com/repos/4IceG/luci-app-sms-tool-js/releases/latest"
-    "luci-app-modemband|https://api.github.com/repos/4IceG/luci-app-modemband/releases/latest"
-    "modemband|https://api.github.com/repos/4IceG/luci-app-modemband/releases/latest"
-    "luci-app-lite-watchdog|https://api.github.com/repos/4IceG/luci-app-lite-watchdog/releases/latest"
-    "luci-app-3ginfo-lite|https://api.github.com/repos/4IceG/luci-app-3ginfo-lite/releases/latest"
-    "luci-app-netmonitor|https://api.github.com/repos/rtaserver/rta-packages/releases"
-    "luci-app-base64|https://api.github.com/repos/rtaserver/rta-packages/releases"
-    "luci-theme-rta|https://api.github.com/repos/rtaserver/RTA-Theme-OpenWrt/releases/latest"
-    "luci-app-rtaconfig|https://api.github.com/repos/rtaserver/RTA-Theme-OpenWrt/releases/latest"
-    "luci-theme-alpha|https://api.github.com/repos/derisamedia/luci-theme-alpha/releases/latest"
-    "luci-app-alpha-config|https://api.github.com/repos/derisamedia/luci-theme-alpha/releases/latest"
+    #"luci-app-adguardhome|https://api.github.com/repos/kongfl888/luci-app-adguardhome/releases/latest"
 )
 
 echo "#########################################"
@@ -101,41 +65,57 @@ for entry in "${files2[@]}"; do
 done
 }
 
-#################################################################################################################################
+{
+    echo "###################################################"
+    echo "Downloading packages from external-kiddin9"
+    echo "###################################################"
+    echo "#"
+    BASE_URL="https://dl.openwrt.ai/packages-23.05/$ARCH_3/kiddin9"
+    BASE_LIST="https://dl.openwrt.ai/latest/packages/$ARCH_3/kiddin9/Packages.gz"
 
-# for testing download url before commiting
-# remove comment# then copy to your terminal for testing it
-# format for offical repo: "PACKAGE-NAME|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/packages"
-# format for github release: "PACKAGE-NAME|https://api.github.com/repos/GITHUBUSER/REPO-NAME/releases"
+    PACKAGES_GZ="Packages.gz"
+    PACKAGES_FILE="Packages"
 
-# official and custom repo
-#{
-#BRANCH="23.05.3"
-#ARCH_3="x86_64"
-#files1=(
-#    "sms-tool|https://downloads.openwrt.org/snapshots/packages/$ARCH_3/packages"
-#)
-#for entry in "${files2[@]}"; do
-#   IFS="|" read -r filename1 base_url <<< "$entry"
-#   file_urls=$(curl -sL "$base_url" | grep -oE "${filename1}_[0-9a-zA-Z\._~-]*\.ipk" | sort -V | tail -n 1)
-#   echo "file name: $filename1"
-#   echo "remote file name: $file_urls"
-#   echo "download url: $base_url/$file_urls"
-#done
-#}
+    #===============================================
+    input_packages=(
+    "luci-app-internet-detector"
+    "internet-detector"
+    "internet-detector-mod-modem-restart"
+    "luci-app-temp-status"
+    "luci-app-ramfree"
+    "luci-app-poweroff"
+    "xmm-modem"
+    )
+    #================================================
+    
+    echo "Downloading $PACKAGES_GZ from $BASE_LIST..."
+    curl -L "$BASE_LIST" -o "$PACKAGES_GZ"
 
-# github release
-#{
-#BRANCH="23.05.3"
-#ARCH_3="x86_64"
-#files2=(
-#    "luci-app-sms-tool-js|https://api.github.com/repos/4IceG/luci-app-sms-tool-js/releases"
-#)
-#for entry in "${files2[@]}"; do
-#   IFS="|" read -r filename2 base_url <<< "$entry"
-#   file_urls=$(curl -s "$base_url" | grep "browser_download_url" | grep -oE "https.*/${filename2}_[_0-9a-zA-Z\._~-]*\.ipk" | sort -V | tail -n 1)
-#   echo "file name: $filename2"
-#   echo "remote file name: $(basename "$file_urls")"
-#   echo "download url: $file_urls"
-#done
-#}
+    echo "Extracting $PACKAGES_GZ..."
+    gunzip "$PACKAGES_GZ"
+
+    declare -A files_map
+
+    while IFS= read -r line; do
+        if [[ $line == Package:* ]]; then
+            package_name=$(echo $line | awk '{print $2}')
+        elif [[ $line == Filename:* ]]; then
+            filename=$(echo $line | awk '{print $2}')
+            files_map["$package_name"]="$filename"
+        fi
+    done < "$PACKAGES_FILE"
+
+    for input_package in "${input_packages[@]}"; do
+        if [[ -n ${files_map[$input_package]} ]]; then
+            FILENAME=${files_map[$input_package]}
+            URL="$BASE_URL/$FILENAME"
+            SAVE_AS="packages/${input_package}.ipk"
+            echo "Downloading $FILENAME from $URL..."
+            curl -L "$URL" -o "$SAVE_AS"
+        else
+            echo "Paket '$input_package' tidak ditemukan dalam daftar."
+        fi
+    done
+
+    rm -f "$PACKAGES_GZ" "$PACKAGES_FILE"
+}
