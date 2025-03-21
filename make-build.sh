@@ -18,7 +18,7 @@ kmod-usb-uhci kmod-usb2 kmod-usb-ehci kmod-usb-net-ipheth usbmuxd libusbmuxd-uti
 kmod-phy-broadcom kmod-phylib-broadcom kmod-tg3"
 
 # Modem Tools
-PACKAGES+=" modeminfo luci-app-modeminfo atinout modemband luci-app-modemband luci-app-mmconfig sms-tool luci-app-sms-tool-js luci-app-lite-watchdog luci-app-3ginfo-lite picocom minicom"
+#PACKAGES+=" modeminfo luci-app-modeminfo atinout modemband luci-app-modemband luci-app-mmconfig sms-tool luci-app-sms-tool-js luci-app-lite-watchdog luci-app-3ginfo-lite picocom minicom"
 
 # Tunnel option
 OPENCLASH_FW3="coreutils-nohup bash iptables dnsmasq-full curl ca-certificates ipset ip-full iptables-mod-tproxy iptables-mod-extra libcap libcap-bin ruby ruby-yaml kmod-tun unzip luci-compat luci luci-base luci-app-openclash"
@@ -42,32 +42,32 @@ elif [ "$2" == "openclash-passwall-neko" ]; then
 fi
 
 # Adguardhome
-PACKAGES+=" luci-app-adguardhome ca-certificates ca-bundle tar unzip bind-tools"
+#PACKAGES+=" luci-app-adguardhome ca-certificates ca-bundle tar unzip bind-tools"
 
 # NAS and Hard disk tools
-PACKAGES+=" luci-app-diskman luci-app-hd-idle luci-app-disks-info smartmontools kmod-usb-storage kmod-usb-storage-uas ntfs-3g"
-PACKAGES+=" samba4-server luci-app-samba4 aria2 ariang luci-app-aria2 luci-app-tinyfm"
+PACKAGES+=" luci-app-diskman luci-app-disks-info smartmontools kmod-usb-storage kmod-usb-storage-uas ntfs-3g"
+#PACKAGES+=" samba4-server luci-app-samba4 aria2 ariang luci-app-aria2 luci-app-tinyfm"
 
 # Docker
-PACKAGES+=" docker docker-compose dockerd luci-app-dockerman"
+#PACKAGES+=" docker docker-compose dockerd luci-app-dockerman"
 
 # Bandwidth And Network Monitoring
-PACKAGES+=" internet-detector luci-app-internet-detector internet-detector-mod-modem-restart nlbwmon luci-app-nlbwmon vnstat2 vnstati2 luci-app-vnstat2 luci-app-netmonitor"
+PACKAGES+=" internet-detector luci-app-internet-detector internet-detector-mod-modem-restart vnstat2 vnstati2 luci-app-vnstat2"
 
 # Speedtest
-PACKAGES+=" librespeed-go python3-speedtest-cli iperf3 luci-app-netspeedtest"
+PACKAGES+=" iperf3"
 
 # Base64 Encode Decode
-PACKAGES+=" luci-app-base64"
+#PACKAGES+=" luci-app-base64"
 
-# Argon Theme
-PACKAGES+=" luci-theme-argon luci-app-argon-config"
+# material Theme
+PACKAGES+=" luci-theme-material"
 
 # Alpha Theme
-PACKAGES+=" luci-theme-alpha luci-app-alpha-config"
+#PACKAGES+=" luci-theme-alpha luci-app-alpha-config"
 
 # RTA Theme
-PACKAGES+=" luci-theme-rta luci-app-rtaconfig"
+#PACKAGES+=" luci-theme-rta luci-app-rtaconfig"
 
 # PHP8
 PACKAGES+=" libc php8 php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip php8-mod-iconv php8-mod-mbstring coreutils-stat zoneinfo-asia"
@@ -75,7 +75,7 @@ PACKAGES+=" libc php8 php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8
 # Misc and some custom .ipk files
 misc=""
 if [ "${RELEASE_BRANCH%:*}" == "openwrt" ]; then
-    misc+=" luci-app-temp-status luci-app-cpu-status-mini"
+    misc+=" luci-app-temp-status"
 elif [ "${RELEASE_BRANCH%:*}" == "immortalwrt" ]; then
     misc+=" "
 fi
@@ -97,7 +97,7 @@ if [ "$TYPE" == "AMLOGIC" ]; then
     EXCLUDED+=" -procd-ujail"
 fi
 
-PACKAGES+=" $misc zram-swap adb parted losetup resize2fs luci luci-ssl block-mount luci-app-poweroff luci-app-log-viewer luci-app-ramfree htop bash curl wget wget-ssl tar unzip unrar gzip jq luci-app-ttyd nano httping screen openssh-sftp-server"
+PACKAGES+=" $misc zram-swap adb parted losetup resize2fs luci luci-ssl block-mount luci-app-ramfree htop bash curl wget wget-ssl tar unzip unrar gzip jq luci-app-ttyd nano httping screen openssh-sftp-server"
 
 # Exclude package (must use - before packages name)
 EXCLUDED=""
@@ -114,7 +114,7 @@ fi
 FILES="files"
 
 # Disable service
-DISABLED_SERVICES="AdGuardHome"
+#DISABLED_SERVICES="AdGuardHome"
 
 # Start build firmware
 make image PROFILE="$1" PACKAGES="$PACKAGES $EXCLUDED" FILES="$FILES" DISABLED_SERVICES="$DISABLED_SERVICES"
