@@ -205,9 +205,9 @@ jobs:
             echo "ARCH_3=aarch64_generic" >> $GITHUB_ENV
           else
             echo "PROFILE=Default" >> $GITHUB_ENV
-            echo "TARGET_SYSTEM=armvirt/64" >> $GITHUB_ENV
-            echo "TARGET_NAME=armvirt-64" >> $GITHUB_ENV
-            TARGET_NAME="armvirt-64"
+            echo "TARGET_SYSTEM=armsr/armv8" >> $GITHUB_ENV
+            echo "TARGET_NAME=armsr-armv8" >> $GITHUB_ENV
+            TARGET_NAME="armsr-armv8"
             echo "ARCH_1=arm64" >> $GITHUB_ENV
             echo "ARCH_2=aarch64" >> $GITHUB_ENV
             echo "ARCH_3=aarch64_generic" >> $GITHUB_ENV
