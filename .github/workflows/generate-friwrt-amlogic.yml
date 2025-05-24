@@ -223,10 +223,19 @@ jobs:
       - name: Download Image Builder
         id: download
         run: |
-          RELEASE="$DOWNLOAD_BASE/releases/$BRANCH/targets/$TARGET_SYSTEM/$BASE-imagebuilder-$BRANCH-$TARGET_NAME.Linux-x86_64.tar.zst"
+          archive_ext=$([ "${CURVER}" == "24" ] && echo "tar.zst" || echo "tar.xz")
+          RELEASE="$DOWNLOAD_BASE/releases/$BRANCH/targets/$TARGET_SYSTEM/$BASE-imagebuilder-$BRANCH-$TARGET_NAME.Linux-x86_64.tar.${archive_ext}"
           wget -nv "$RELEASE"
-          tar -xJf *-imagebuilder-* && sync && rm -f *-imagebuilder-*.tar.zst && mv *-imagebuilder-* $WORKING_DIR && sync
-          tar --use-compress-program=unzstd -xf *-imagebuilder-* && rm -f *-imagebuilder-*.tar.zst
+          # Extract archive based on extension
+          case "${archive_ext}" in
+            tar.xz)
+              tar -xJf *-imagebuilder-* && rm -f *-imagebuilder-*.tar.xz
+              ;;
+            tar.zst)
+              tar --use-compress-program=unzstd -xf *-imagebuilder-* && rm -f *-imagebuilder-*.tar.zst
+              ;;
+          esac
+          
           cp -r $GITHUB_WORKSPACE/origin/* $GITHUB_WORKSPACE/$WORKING_DIR
           if [ "$TARGET" == "all" ]; then
              mkdir -p /builder/$WORKING_DIR
