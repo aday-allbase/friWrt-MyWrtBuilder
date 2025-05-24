@@ -18,23 +18,23 @@ on:
       release_branch:
         description: "Select the release branch:"
         required: true
-        default: "openwrt:23.05.3"
+        default: "openwrt:24.10.1"
         type: choice
         options:
           - openwrt:21.02.7
-          - openwrt:23.05.2
           - openwrt:23.05.3
+          - openwrt:24.10.1
           - immortalwrt:21.02.7
           - immortalwrt:23.05.1
           - immortalwrt:23.05.2
       target:
         description: "Select device board"
         required: false
-        default: "hg680p"
+        default: "x96 mini"
         type: choice
         options:
           - all
-          - hg680p
+          - x96 mini
           - b860h
           - nanopi-r5s
       openwrt_kernel:
@@ -190,8 +190,8 @@ jobs:
         run: |
           if [ "$TARGET" == "all" ]; then
             echo "openwrt_board=all" >> $GITHUB_ENV
-          elif [ "$TARGET" == "hg680p" ] || [ "$TARGET" == "b860h" ]; then
-            echo "openwrt_board=s905x" >> $GITHUB_ENV
+          elif [ "$TARGET" == "x96 mini" ] || [ "$TARGET" == "b860h" ]; then
+            echo "openwrt_board=s905w" >> $GITHUB_ENV
           elif [ "$TARGET" == "nanopi-r5s" ]; then
             echo "openwrt_board=rk3568" >> $GITHUB_ENV
           fi
@@ -223,9 +223,9 @@ jobs:
       - name: Download Image Builder
         id: download
         run: |
-          RELEASE="$DOWNLOAD_BASE/releases/$BRANCH/targets/$TARGET_SYSTEM/$BASE-imagebuilder-$BRANCH-$TARGET_NAME.Linux-x86_64.tar.xz"
+          RELEASE="$DOWNLOAD_BASE/releases/$BRANCH/targets/$TARGET_SYSTEM/$BASE-imagebuilder-$BRANCH-$TARGET_NAME.Linux-x86_64.tar.zst"
           wget -nv "$RELEASE"
-          tar -xJf *-imagebuilder-* && sync && rm -f *-imagebuilder-*.tar.xz && mv *-imagebuilder-* $WORKING_DIR && sync
+          tar -xJf *-imagebuilder-* && sync && rm -f *-imagebuilder-*.tar.zst && mv *-imagebuilder-* $WORKING_DIR && sync
           cp -r $GITHUB_WORKSPACE/origin/* $GITHUB_WORKSPACE/$WORKING_DIR
           if [ "$TARGET" == "all" ]; then
              mkdir -p /builder/$WORKING_DIR
@@ -254,7 +254,7 @@ jobs:
         run: |
           cd $WORKING_DIR
           bash scripts/builder-patch.sh
-          bash scripts/agh-core.sh
+#          bash scripts/agh-core.sh
           bash scripts/misc.sh
           if [[ "$TUNNEL" == "all" && "$BRANCH" != "21.02.7" ]]; then 
               echo "VPN Client: $TUNNEL"
@@ -376,9 +376,9 @@ jobs:
             See [here](https://github.com/frizkyiman/friWrt-MyWrtBuilder?tab=readme-ov-file#firmware-details) for more detail feature and other information.
             - Default IP: 192.168.1.1
             - Default username: root
-            - Default password: friwrt
-            - Default WIFI name: friWrt_2g | friWrt_5g (if device supported)
-            - Default WIFI password: friwrt2024 (if device supported)
+            - Default password: root
+#            - Default WIFI name: friWrt_2g | friWrt_5g (if device supported)
+#            - Default WIFI password: friwrt2024 (if device supported)
             
             ### Install to EMMC
             - Login to OpenWrt → System → Amlogic Service → Install OpenWrt
