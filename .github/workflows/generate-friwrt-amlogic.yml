@@ -18,15 +18,15 @@ on:
       release_branch:
         description: "Select the release branch:"
         required: true
-        default: "openwrt:23.05.3"
+        default: "openwrt:24.10.1"
         type: choice
         options:
           - openwrt:21.02.7
           - openwrt:23.05.2
-          - openwrt:23.05.3
+          - openwrt:24.10.1
           - immortalwrt:21.02.7
           - immortalwrt:23.05.1
-          - immortalwrt:23.05.2
+          - immortalwrt:24.10.1
       target:
         description: "Select device board"
         required: false
@@ -223,9 +223,9 @@ jobs:
       - name: Download Image Builder
         id: download
         run: |
-          RELEASE="$DOWNLOAD_BASE/releases/$BRANCH/targets/$TARGET_SYSTEM/$BASE-imagebuilder-$BRANCH-$TARGET_NAME.Linux-x86_64.tar.xz"
+          RELEASE="$DOWNLOAD_BASE/releases/$BRANCH/targets/$TARGET_SYSTEM/$BASE-imagebuilder-$BRANCH-$TARGET_NAME.Linux-x86_64.tar.zst"
           wget -nv "$RELEASE"
-          tar -xJf *-imagebuilder-* && sync && rm -f *-imagebuilder-*.tar.xz && mv *-imagebuilder-* $WORKING_DIR && sync
+          tar -xJf *-imagebuilder-* && sync && rm -f *-imagebuilder-*.tar.zst && mv *-imagebuilder-* $WORKING_DIR && sync
           cp -r $GITHUB_WORKSPACE/origin/* $GITHUB_WORKSPACE/$WORKING_DIR
           if [ "$TARGET" == "all" ]; then
              mkdir -p /builder/$WORKING_DIR
@@ -254,7 +254,6 @@ jobs:
         run: |
           cd $WORKING_DIR
           bash scripts/builder-patch.sh
-          bash scripts/agh-core.sh
           bash scripts/misc.sh
           if [[ "$TUNNEL" == "all" && "$BRANCH" != "21.02.7" ]]; then 
               echo "VPN Client: $TUNNEL"
