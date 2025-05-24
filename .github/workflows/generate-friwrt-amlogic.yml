@@ -226,6 +226,7 @@ jobs:
           RELEASE="$DOWNLOAD_BASE/releases/$BRANCH/targets/$TARGET_SYSTEM/$BASE-imagebuilder-$BRANCH-$TARGET_NAME.Linux-x86_64.tar.zst"
           wget -nv "$RELEASE"
           tar -xJf *-imagebuilder-* && sync && rm -f *-imagebuilder-*.tar.zst && mv *-imagebuilder-* $WORKING_DIR && sync
+          tar --use-compress-program=unzstd -xf *-imagebuilder-* && rm -f *-imagebuilder-*.tar.zst
           cp -r $GITHUB_WORKSPACE/origin/* $GITHUB_WORKSPACE/$WORKING_DIR
           if [ "$TARGET" == "all" ]; then
              mkdir -p /builder/$WORKING_DIR
