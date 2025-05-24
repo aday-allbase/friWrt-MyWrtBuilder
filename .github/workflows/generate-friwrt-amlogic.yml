@@ -375,9 +375,6 @@ jobs:
             See [here](https://github.com/frizkyiman/friWrt-MyWrtBuilder?tab=readme-ov-file#firmware-details) for more detail feature and other information.
             - Default IP: 192.168.1.1
             - Default username: root
-            - Default password: friwrt
-            - Default WIFI name: friWrt_2g | friWrt_5g (if device supported)
-            - Default WIFI password: friwrt2024 (if device supported)
-            
+            - Default password: root
             ### Install to EMMC
             - Login to OpenWrt → System → Amlogic Service → Install OpenWrt
