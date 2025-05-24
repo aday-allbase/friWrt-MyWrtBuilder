@@ -30,11 +30,11 @@ on:
       target:
         description: "Select device board"
         required: false
-        default: "x96 mini"
+        default: "x96mini"
         type: choice
         options:
           - all
-          - x96 mini
+          - x96mini
           - b860h
           - nanopi-r5s
       openwrt_kernel:
@@ -190,7 +190,7 @@ jobs:
         run: |
           if [ "$TARGET" == "all" ]; then
             echo "openwrt_board=all" >> $GITHUB_ENV
-          elif [ "$TARGET" == "x96 mini" ] || [ "$TARGET" == "b860h" ]; then
+          elif [ "$TARGET" == "x96mini" ] || [ "$TARGET" == "b860h" ]; then
             echo "openwrt_board=s905w" >> $GITHUB_ENV
           elif [ "$TARGET" == "nanopi-r5s" ]; then
             echo "openwrt_board=rk3568" >> $GITHUB_ENV
@@ -377,8 +377,8 @@ jobs:
             - Default IP: 192.168.1.1
             - Default username: root
             - Default password: root
-            - Default WIFI name: friWrt_2g | friWrt_5g (if device supported)
-            - Default WIFI password: friwrt2024 (if device supported)
+#            - Default WIFI name: friWrt_2g | friWrt_5g (if device supported)
+#            - Default WIFI password: friwrt2024 (if device supported)
             
             ### Install to EMMC
             - Login to OpenWrt → System → Amlogic Service → Install OpenWrt
