@@ -54,6 +54,11 @@ uci -q delete dhcp.lan.ra
 uci -q delete dhcp.lan.ndp
 uci commit dhcp
 
+# Remove sysinfo banner if Devices Amlogic
+if opkg list-installed | grep luci-app-amlogic > /dev/null; then
+    rm -rf /etc/profile.d/30-sysinfo.sh
+fi
+
 # custom repo and Disable opkg signature check
 echo "Setup custom repo using MyOPKG Repo"
 if grep -qE '^VERSION_ID="21' /etc/os-release; then
