@@ -43,6 +43,7 @@ uci set network.wan.device='eth1'
 uci set network.tethering=interface
 uci set network.tethering.proto='dhcp'
 uci set network.tethering.device='usb0'
+uci -q delete network.wan6
 uci commit network
 uci set firewall.@zone[1].network='wan tethering'
 uci commit firewall
@@ -86,6 +87,9 @@ sed -i -e '/1e2d:00b3/,+5d' /etc/usb-mode.json
 # Disable /etc/config/xmm-modem
 uci set xmm-modem.@xmm-modem[0].enable='0'
 uci commit
+
+# netdata
+mv /usr/share/netdata/web/lib/jquery-3.6.0.min.js /usr/share/netdata/web/lib/jquery-2.2.4.min.js
 
 # setup auto vnstat database backup
 sed -i 's/;DatabaseDir "\/var\/lib\/vnstat"/DatabaseDir "\/etc\/vnstat"/' /etc/vnstat.conf

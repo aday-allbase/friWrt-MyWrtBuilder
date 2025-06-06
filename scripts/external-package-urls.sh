@@ -31,7 +31,7 @@ files1=(
     #"python3-speedtest-cli|https://downloads.openwrt.org/releases/packages-$(echo "$BRANCH" | cut -d'.' -f1-2)/$ARCH_3/packages"
     #"librespeed-go|https://downloads.openwrt.org/releases/packages-$(echo "$BRANCH" | cut -d'.' -f1-2)/$ARCH_3/packages"
     #"luci-app-ramfree|https://downloads.staging.immortalwrt.org/snapshots/packages/$ARCH_3/luci"
-    "xmm-modem|https://github.com/lrdrdn/my-opkg-repo/raw/21.02/generic"
+    #"xmm-modem|https://github.com/lrdrdn/my-opkg-repo/raw/21.02/generic"
 )
 
 echo "###########################################################"
