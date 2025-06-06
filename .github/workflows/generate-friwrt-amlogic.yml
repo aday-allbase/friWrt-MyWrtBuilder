@@ -21,7 +21,7 @@ on:
         default: "openwrt:23.05.3"
         type: choice
         options:
-          - openwrt:21.02.7
+          - openwrt:21.02.3
           - openwrt:23.05.2
           - openwrt:23.05.3
           - immortalwrt:21.02.7
@@ -121,7 +121,7 @@ jobs:
       - name: Checking Tunnel Option
         id: tunnelopt
         run: |
-          if [[ ("$TUNNEL" == "neko" || "$TUNNEL" == "passwall" || "$TUNNEL" == "openclash-passwall" || "$TUNNEL" == "neko-passwall" || "$TUNNEL" == "neko-openclash" || "$TUNNEL" == "openclash-passwall-neko") && "${RELEASE_BRANCH#*:}" == "21.02.7" ]]; then
+          if [[ ("$TUNNEL" == "neko" || "$TUNNEL" == "passwall" || "$TUNNEL" == "openclash-passwall" || "$TUNNEL" == "neko-passwall" || "$TUNNEL" == "neko-openclash" || "$TUNNEL" == "openclash-passwall-neko") && "${RELEASE_BRANCH#*:}" == "21.02.3" ]]; then
             echo "Cannot continue the process because the selected tunnel [$TUNNEL]"
             echo "only support for newer branch with fw4 firewall!"
             exit 1
@@ -240,7 +240,7 @@ jobs:
         run: |
           cd $WORKING_DIR
           bash scripts/external-package-urls.sh
-          if [[ "$BRANCH" == "21.02.7" ]]; then
+          if [[ "$BRANCH" == "21.02.3" ]]; then
              grep -E "^all-all|^old-21.02|^amlogic-$tags|^amlogic" external-package-urls.txt | awk '{print $2}' > output_url.txt
           else
              grep -E "^all-all|^all|^amlogic" external-package-urls.txt | grep -vE "^amlogic-21.02" | awk '{print $2}' > output_url.txt
@@ -254,7 +254,6 @@ jobs:
         run: |
           cd $WORKING_DIR
           bash scripts/builder-patch.sh
-          bash scripts/agh-core.sh
           bash scripts/misc.sh
           if [[ "$TUNNEL" == "all" && "$BRANCH" != "21.02.7" ]]; then 
               echo "VPN Client: $TUNNEL"
@@ -376,9 +375,7 @@ jobs:
             See [here](https://github.com/frizkyiman/friWrt-MyWrtBuilder?tab=readme-ov-file#firmware-details) for more detail feature and other information.
             - Default IP: 192.168.1.1
             - Default username: root
-            - Default password: friwrt
-            - Default WIFI name: friWrt_2g | friWrt_5g (if device supported)
-            - Default WIFI password: friwrt2024 (if device supported)
+            - Default password: root
             
             ### Install to EMMC
             - Login to OpenWrt → System → Amlogic Service → Install OpenWrt
